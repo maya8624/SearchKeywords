@@ -1,21 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="SearchKeyWords.Models.SearchEngine" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
+  <Class Name="SearchKeyWords.Models.SearchEngine">
+    <Position X="10.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAASAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Models\SearchEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="SearchKeyWords.Interface.IEngineProcess" Collapsed="true">
-    <Position X="2.5" Y="1.25" Width="1.5" />
+  <Class Name="SearchKeyWords.Services.BingService">
+    <Position X="3.5" Y="2.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IEngineProcess.cs</FileName>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Services\BingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.725" />
+  </Class>
+  <Class Name="SearchKeyWords.Services.GoogleService">
+    <Position X="1.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Services\GoogleService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.731" />
+  </Class>
+  <Class Name="SearchKeyWords.Services.SearchEngineProcess">
+    <Position X="6.25" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAACAADAAAIgSAAAAAAAgAAAAEAAA=</HashCode>
+      <FileName>Services\SearchEngineProcess.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.579" />
+  </Class>
+  <Class Name="SearchKeyWords.ViewModels.SearchResultView">
+    <Position X="10.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAACAAAAAAAgAA=</HashCode>
+      <FileName>ViewModels\SearchResultView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SearchKeyWords.Interface.ISearchEngineProcess">
+    <Position X="6.75" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAACAABAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISearchEngineProcess.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SearchKeyWords.Interface.ISearchEngineService" Collapsed="true">
-    <Position X="4.75" Y="1.25" Width="1.5" />
+  <Interface Name="SearchKeyWords.Interface.ISearchEngineService">
+    <Position X="2.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Interfaces\ISearchEngineService.cs</FileName>
