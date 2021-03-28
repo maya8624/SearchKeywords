@@ -1,4 +1,4 @@
-namespace SearchKeywords.Models
+namespace SearchKeyWords.Models
 {
     public class SearchEngine
     {        

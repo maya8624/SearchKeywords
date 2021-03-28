@@ -1,27 +1,23 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using SearchKeywords.ViewModels;
+using SearchKeyWords.ViewModels;
 using SearchKeyWords.Interface;
 
-namespace SearchKeywords.Services
+namespace SearchKeyWords.Services
 {
     public class GoogleService : ISearchEngineService
     {        
-        private readonly IEngineApplication engineApplication;
+        private readonly ISearchEngineProcess engineProcess;
 
-        public GoogleService( IEngineApplication engineApplication)
+        public GoogleService(ISearchEngineProcess engineProcess)
         {            
-            this.engineApplication = engineApplication;            
+            this.engineProcess = engineProcess;            
         }
 
         public string EngineName => "Google";
 
-        public async Task<SearchResultView> GetAllPagesAsync(string keywords, string url)
+        public async Task<SearchResultView> GetAllPagesAsync(string searchKeywords, string searchUrl)
         {
-            var result = await engineApplication.GetPageNumbersAsync(EngineName);
-
-            return result;
+            return await engineProcess.GetPageNumbersAsync(EngineName, searchKeywords, searchUrl);
         }
     }
 }

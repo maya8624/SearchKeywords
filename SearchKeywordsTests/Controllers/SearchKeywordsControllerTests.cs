@@ -1,31 +1,29 @@
-﻿using Microsoft.Extensions.Configuration;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using SearchKeywords.Models;
-using SearchKeywords.ViewModels;
+using SearchKeyWords.Models;
+using SearchKeyWords.ViewModels;
 using SearchKeyWords.Controllers;
 using SearchKeyWords.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace SearchKeyWordsTests.Controllers
 {
     [TestFixture]
     public class SearchKeywordsControllerTests
     {
-        private SearchKeywordsController _controller;
-        private Mock<IEngineApplication> _engine;
-        private Mock<ISearchEngineService> _service;
+        private Mock<ISearchEngineProcess> engineProcess;
+        private Mock<ILogger<SearchKeywordsController>> logger;        
+        private SearchKeywordsController controller;
 
         [SetUp]
         public void SetUp()
         {
-            _engine = new Mock<IEngineApplication>();
-            _service = new Mock<ISearchEngineService>();
-            _controller = new SearchKeywordsController(_engine.Object);
+            engineProcess = new Mock<ISearchEngineProcess>();
+            logger = new Mock<ILogger<SearchKeywordsController>>();           
+            controller = new SearchKeywordsController(engineProcess.Object, logger.Object);
         }
 
         [Test]
@@ -36,14 +34,14 @@ namespace SearchKeyWordsTests.Controllers
             string url = "www.infotrack.com.au";
 
             // Action
-            var result = await _controller.Get(keywords, url);
+            var result = await controller.GetPages(keywords, url);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public async Task Get_WhenCalled_ReturnListOfSearchResult()
+        public async Task Get_WhenCalled_ReturnSearchResultView()
         {
             // Arrange
             string keywords = "online";
@@ -83,18 +81,18 @@ namespace SearchKeyWordsTests.Controllers
                 }
             };
 
-           // _engine.Setup(e => e.GetSearchEngine("google")).Returns(searchEngine);
-          
-            _engine.Setup(e => e.GetPageNumbersAsync(It.IsAny<string>())).ReturnsAsync(searchResult);
-            _service.Setup(e => e.GetAllPagesAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(searchResult);
+            engineProcess.Setup(e => e.GetSearchEngine("google")).Returns(searchEngine);
+
+            engineProcess.Setup(e => e.GetPageNumbersAsync(It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>())).ReturnsAsync(searchResult);
 
             // Action
-            var result = await _controller.Get(keywords, url);
+            var result = await controller.GetPages(keywords, url);
 
             // Assert
             Assert.That(result.Any, Is.True);
             Assert.That(result[0].Name, Is.EqualTo("Google").IgnoreCase);
-        }
-       
+        }       
     }
 }

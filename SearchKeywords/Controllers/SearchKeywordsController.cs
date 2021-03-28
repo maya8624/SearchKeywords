@@ -1,11 +1,10 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using SearchKeywords.Models;
-using SearchKeywords.Services;
-using SearchKeywords.ViewModels;
+using Microsoft.Extensions.Logging;
+using SearchKeyWords.ViewModels;
 using SearchKeyWords.Interface;
 using SearchKeyWords.Services;
 
@@ -15,39 +14,41 @@ namespace SearchKeyWords.Controllers
     [Route("[controller]")]
     public class SearchKeywordsController : ControllerBase
     {
-        private readonly IList<ISearchEngineService> _searchEngineServices;
-        private readonly IEngineApplication _engineApplication;
+        private readonly ILogger logger;
+        private readonly ISearchEngineProcess engineProcess;
 
-        public SearchKeywordsController(IEngineApplication engineApplication)
-        {
-            _searchEngineServices = new List<ISearchEngineService>();
-            _engineApplication = engineApplication;
+        public SearchKeywordsController(ISearchEngineProcess engineProcess, ILogger<SearchKeywordsController> logger)
+        {            
+            this.logger = logger;
+            this.engineProcess = engineProcess;
         }
 
         [HttpGet]
-        [Route("{keywords}/{url}")]
-        public async Task<List<SearchResultView>> Get(string keywords, string url = "https://www.infortack.com.au")
-        {
-            // Task<SearchResultView[]>
-            if (string.IsNullOrEmpty(keywords) || string.IsNullOrEmpty(url))
+        [Route("{searchKeywords}/{searchUrl}")]        
+        public async Task<List<SearchResultView>> GetPages(string searchKeywords, string searchUrl)
+        {            
+            if (string.IsNullOrEmpty(searchKeywords) || string.IsNullOrEmpty(searchUrl))
             {
                 return null;
             }
 
-            var tasks = new List<Task<SearchResultView>>();
+            IEnumerable<SearchResultView> results = new List<SearchResultView>();
 
-            _searchEngineServices.Add(new GoogleService(_engineApplication));
-            _searchEngineServices.Add(new BingService(_engineApplication));
-
-            foreach (var service in _searchEngineServices)
+            try
             {
-                tasks.Add(service.GetAllPagesAsync(keywords, url));
+                // Add search engines
+                var engineServices = new SearchEngineProcess();
+                engineServices.RegisterEngineService(new GoogleService(engineProcess));
+                engineServices.RegisterEngineService(new BingService(engineProcess));
+                                
+                results = await engineServices.SearchPages(searchKeywords, Uri.UnescapeDataString(searchUrl));
+               
+                logger.LogInformation("Search finished successfully at: {time}", DateTime.Now);
             }
-
-            // public static async Task<User[]> GetUsersAsync(IEnumerable<int> userIds)
-            // var getTasks =_searchEngineServices.Select(service => service.GetResult(keywords, url));
-
-            IEnumerable<SearchResultView> results = await Task.WhenAll<SearchResultView>(tasks);
+            catch (Exception ex)
+            {
+                logger.LogInformation("An error occured.", ex.Message);
+            }
 
             return results.ToList();
         }
