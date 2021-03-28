@@ -1,4 +1,4 @@
-namespace SearchKeywords.ViewModels
+namespace SearchKeyWords.ViewModels
 {
     public class SearchResultView
     {

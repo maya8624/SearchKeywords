@@ -1,11 +1,8 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using SearchKeywords.Models;
-using SearchKeywords.Services;
-using SearchKeywords.ViewModels;
+using SearchKeyWords.ViewModels;
 using SearchKeyWords.Interface;
 using SearchKeyWords.Services;
 
@@ -15,41 +12,35 @@ namespace SearchKeyWords.Controllers
     [Route("[controller]")]
     public class SearchKeywordsController : ControllerBase
     {
-        private readonly IList<ISearchEngineService> _searchEngineServices;
-        private readonly IEngineApplication _engineApplication;
+        private readonly IList<ISearchEngineService> searchEngineServices;
+        private readonly IEngineProcess engineProcess;
 
-        public SearchKeywordsController(IEngineApplication engineApplication)
+        public SearchKeywordsController(IEngineProcess engineProcess)
         {
-            _searchEngineServices = new List<ISearchEngineService>();
-            _engineApplication = engineApplication;
+            searchEngineServices = new List<ISearchEngineService>();
+            this.engineProcess = engineProcess;
         }
 
         [HttpGet]
-        [Route("{keywords}/{url}")]
-        public async Task<List<SearchResultView>> Get(string keywords, string url = "https://www.infortack.com.au")
-        {
-            // Task<SearchResultView[]>
-            if (string.IsNullOrEmpty(keywords) || string.IsNullOrEmpty(url))
+        [Route("{searchKeywords}/{searchUrl}")]        
+        public async Task<SearchResultView[]> GetPages(string searchKeywords, string searchUrl)
+        {            
+            if (string.IsNullOrEmpty(searchKeywords) || string.IsNullOrEmpty(searchUrl))
             {
                 return null;
             }
 
             var tasks = new List<Task<SearchResultView>>();
 
-            _searchEngineServices.Add(new GoogleService(_engineApplication));
-            _searchEngineServices.Add(new BingService(_engineApplication));
+            searchEngineServices.Add(new GoogleService(engineProcess));
+            searchEngineServices.Add(new BingService(engineProcess));
 
-            foreach (var service in _searchEngineServices)
+            foreach (var service in searchEngineServices)
             {
-                tasks.Add(service.GetAllPagesAsync(keywords, url));
+                tasks.Add(service.GetAllPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl)));
             }
 
-            // public static async Task<User[]> GetUsersAsync(IEnumerable<int> userIds)
-            // var getTasks =_searchEngineServices.Select(service => service.GetResult(keywords, url));
-
-            IEnumerable<SearchResultView> results = await Task.WhenAll<SearchResultView>(tasks);
-
-            return results.ToList();
+            return await Task.WhenAll(tasks);            
         }
     }
 }

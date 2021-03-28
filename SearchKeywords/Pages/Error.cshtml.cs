@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,10 @@ namespace SearchKeywords.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
+            // Log error details
+            var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            _logger.LogError($"The path: {exceptionDetails.Path}. An exception: {exceptionDetails.Error}");
         }
     }
 }

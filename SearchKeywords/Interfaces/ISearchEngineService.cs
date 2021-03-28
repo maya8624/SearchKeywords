@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using SearchKeywords.ViewModels;
+using SearchKeyWords.ViewModels;
 
 namespace SearchKeyWords.Interface
 {
@@ -7,6 +7,6 @@ namespace SearchKeyWords.Interface
     {
         string EngineName { get; }
 
-        Task<SearchResultView> GetAllPagesAsync(string keywords, string url);
+        Task<SearchResultView> GetAllPagesAsync(string searchKeywords, string searchUrl);
     }
 }
