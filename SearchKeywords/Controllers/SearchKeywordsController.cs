@@ -18,13 +18,13 @@ namespace SearchKeyWords.Controllers
         private readonly ISearchEngineProcess engineProcess;
 
         public SearchKeywordsController(ISearchEngineProcess engineProcess, ILogger<SearchKeywordsController> logger)
-        {            
-            this.logger = logger;
+        {
             this.engineProcess = engineProcess;
+            this.logger = logger;
         }
 
         [HttpGet]
-        [Route("{searchKeywords}/{searchUrl}")]        
+        [Route("{searchKeywords}/{searchUrl}")]
         public async Task<List<SearchResultView>> GetPages(string searchKeywords, string searchUrl)
         {            
             if (string.IsNullOrEmpty(searchKeywords) || string.IsNullOrEmpty(searchUrl))

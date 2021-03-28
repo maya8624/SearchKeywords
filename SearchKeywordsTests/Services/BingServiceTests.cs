@@ -11,11 +11,13 @@ namespace SearchKeyWordsTests.Services
     public class BingServiceTests
     {
         private Mock<ISearchEngineProcess> engine;
+
         private BingService bing;
 
         [SetUp]
         public void SetUp()
         {
+
             engine = new Mock<ISearchEngineProcess>();
             bing = new BingService(engine.Object);
         }

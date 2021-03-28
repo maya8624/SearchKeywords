@@ -11,6 +11,7 @@ namespace SearchKeyWordsTests.Services
     public class GogleServiceTests
     {
         private Mock<ISearchEngineProcess> engine;
+
         private GoogleService google;
 
         [SetUp]

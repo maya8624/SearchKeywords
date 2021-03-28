@@ -30,7 +30,7 @@ namespace SearchKeywords
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddScoped<ISearchEngineProcess, SearchEngineProcess>();        
+            services.AddScoped<ISearchEngineProcess, SearchEngineProcess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
