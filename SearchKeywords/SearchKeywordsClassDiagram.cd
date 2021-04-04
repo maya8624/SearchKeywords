@@ -1,55 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SearchKeyWords.Models.SearchEngine">
-    <Position X="10.75" Y="1.5" Width="1.5" />
+    <Position X="8.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAASAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Models\SearchEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SearchKeyWords.Services.BingService">
-    <Position X="3.5" Y="2.75" Width="1.75" />
+  <Class Name="SearchKeyWords.Services.BingService" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAggAA=</HashCode>
       <FileName>Services\BingService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.725" />
+    <Lollipop Position="0.878" />
   </Class>
-  <Class Name="SearchKeyWords.Services.GoogleService">
-    <Position X="1.25" Y="2.75" Width="1.75" />
+  <Class Name="SearchKeyWords.Services.GoogleService" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAggAA=</HashCode>
       <FileName>Services\GoogleService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.731" />
+    <Lollipop Position="0.738" />
   </Class>
-  <Class Name="SearchKeyWords.Services.SearchEngineProcess">
-    <Position X="6.25" Y="3" Width="2.75" />
+  <Class Name="SearchKeyWords.Services.SearchEngineService" BaseTypeListCollapsed="true">
+    <Position X="1" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAACAADAAAIgSAAAAAAAgAAAAEAAA=</HashCode>
-      <FileName>Services\SearchEngineProcess.cs</FileName>
+      <HashCode>AAAAAAAAAAgAAAAAACAADAAAogCAAAAEAAgAAAAAAAA=</HashCode>
+      <FileName>Services\SearchEngineService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.579" />
+    <Lollipop Position="1.093" />
   </Class>
   <Class Name="SearchKeyWords.ViewModels.SearchResultView">
-    <Position X="10.75" Y="3.75" Width="1.5" />
+    <Position X="8.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAACAAAAAAAgAA=</HashCode>
       <FileName>ViewModels\SearchResultView.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="SearchKeyWords.Interface.ISearchEngineProcess">
-    <Position X="6.75" Y="0.75" Width="2" />
+  <Interface Name="SearchKeyWords.Interface.ISearchEngineService">
+    <Position X="1" Y="1" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAACAABAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\ISearchEngineProcess.cs</FileName>
+      <FileName>Interfaces\ISearchEngineService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SearchKeyWords.Interface.ISearchEngineService">
-    <Position X="2.5" Y="0.75" Width="1.75" />
+  <Interface Name="SearchKeyWords.Interface.ISearchPage">
+    <Position X="4.75" Y="1" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
-      <FileName>Interfaces\ISearchEngineService.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Interfaces\ISearchPage.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
