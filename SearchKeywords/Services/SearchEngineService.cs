@@ -14,11 +14,11 @@ namespace SearchKeyWords.Services
     {
         private readonly IConfiguration configuration;
         private readonly IHttpClientFactory clientFactory;
-        private readonly IList<ISearchPages> searchPages;
-     
+        private readonly IList<ISearchPage> searchPages;
+
         public SearchEngineService()
         {
-            searchPages = new List<ISearchPages>();
+            searchPages = new List<ISearchPage>();
         }
 
         public SearchEngineService(IConfiguration configuration, IHttpClientFactory clientFactory)
@@ -105,18 +105,18 @@ namespace SearchKeyWords.Services
                                     .SingleOrDefault(e => e.Name.ToLower() == engineName.ToLower());
         }
 
-        public void RegisterEngineService(ISearchPages engineService)
+        public void RegisterEngineService(ISearchPage searchPage)
         {
-            searchPages.Add(engineService);            
+            searchPages.Add(searchPage);            
         }
 
         public async Task<SearchResultView[]> SearchPagesAsync(string searchKeywords, string searchUrl)
         {            
             var tasks = new List<Task<SearchResultView>>();
           
-            foreach (var service in searchPages)
+            foreach (var searchPage in searchPages)
             {
-                tasks.Add(service.GetAllPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl)));
+                tasks.Add(searchPage.GetAllPagesAsync(searchKeywords, searchUrl));
             }
 
             return await Task.WhenAll(tasks);

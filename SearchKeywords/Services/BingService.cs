@@ -5,7 +5,7 @@ using SearchKeyWords.Interface;
 
 namespace SearchKeyWords.Services
 {
-    public class BingService : ISearchPages
+    public class BingService : ISearchPage
     {
         private readonly ISearchEngineService searchEngineService;
         

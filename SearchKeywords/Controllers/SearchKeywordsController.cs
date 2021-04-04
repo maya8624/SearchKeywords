@@ -37,11 +37,11 @@ namespace SearchKeyWords.Controllers
             try
             {
                 // Add search engines
-                var engineServices = new SearchEngineService();
-                engineServices.RegisterEngineService(new GoogleService(searchEngineService));
-                engineServices.RegisterEngineService(new BingService(searchEngineService));
+                var service = new SearchEngineService();
+                service.RegisterEngineService(new GoogleService(searchEngineService));
+                service.RegisterEngineService(new BingService(searchEngineService));
                                 
-                results = await engineServices.SearchPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl));
+                results = await service.SearchPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl));
                
                 logger.LogInformation("Search finished successfully at: {time}", DateTime.Now);
             }

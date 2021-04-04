@@ -4,7 +4,7 @@ using SearchKeyWords.ViewModels;
 
 namespace SearchKeyWords.Interface
 {
-    public interface ISearchPages
+    public interface ISearchPage
     {
         Task<SearchResultView> GetAllPagesAsync(string searchKeywords, string searchUrl);
     }

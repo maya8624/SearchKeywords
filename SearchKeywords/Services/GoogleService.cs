@@ -4,7 +4,7 @@ using SearchKeyWords.Interface;
 
 namespace SearchKeyWords.Services
 {
-    public class GoogleService : ISearchPages
+    public class GoogleService : ISearchPage
     {       
         private readonly ISearchEngineService searchEngineService;
 
