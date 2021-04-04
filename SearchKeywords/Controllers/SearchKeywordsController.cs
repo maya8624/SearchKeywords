@@ -15,11 +15,11 @@ namespace SearchKeyWords.Controllers
     public class SearchKeywordsController : ControllerBase
     {
         private readonly ILogger logger;
-        private readonly ISearchEngineProcess engineProcess;
+        private readonly ISearchEngineService searchEngineService;
 
-        public SearchKeywordsController(ISearchEngineProcess engineProcess, ILogger<SearchKeywordsController> logger)
+        public SearchKeywordsController(ISearchEngineService searchEngineService, ILogger<SearchKeywordsController> logger)
         {
-            this.engineProcess = engineProcess;
+            this.searchEngineService = searchEngineService;
             this.logger = logger;
         }
 
@@ -37,11 +37,11 @@ namespace SearchKeyWords.Controllers
             try
             {
                 // Add search engines
-                var engineServices = new SearchEngineProcess();
-                engineServices.RegisterEngineService(new GoogleService(engineProcess));
-                engineServices.RegisterEngineService(new BingService(engineProcess));
+                var engineServices = new SearchEngineService();
+                engineServices.RegisterEngineService(new GoogleService(searchEngineService));
+                engineServices.RegisterEngineService(new BingService(searchEngineService));
                                 
-                results = await engineServices.SearchPages(searchKeywords, Uri.UnescapeDataString(searchUrl));
+                results = await engineServices.SearchPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl));
                
                 logger.LogInformation("Search finished successfully at: {time}", DateTime.Now);
             }

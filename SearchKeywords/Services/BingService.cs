@@ -5,20 +5,20 @@ using SearchKeyWords.Interface;
 
 namespace SearchKeyWords.Services
 {
-    public class BingService : ISearchEngineService
+    public class BingService : ISearchPages
     {
-        private readonly ISearchEngineProcess engineProcess;
+        private readonly ISearchEngineService searchEngineService;
         
-        public BingService(ISearchEngineProcess engineProcess)
+        public BingService(ISearchEngineService searchEngineService)
         {            
-            this.engineProcess = engineProcess;
+            this.searchEngineService = searchEngineService;
         }
 
         public string EngineName => "Bing";
 
         public async Task<SearchResultView> GetAllPagesAsync(string searchKeywords, string searchUrl)
         {
-            return await engineProcess.GetPageNumbersAsync(EngineName, searchKeywords, searchUrl);            
+            return await searchEngineService.GetPageNumbersAsync(EngineName, searchKeywords, searchUrl);            
         }
     }
 }

@@ -14,16 +14,16 @@ namespace SearchKeyWordsTests.Controllers
     [TestFixture]
     public class SearchKeywordsControllerTests
     {
-        private Mock<ISearchEngineProcess> engineProcess;
+        private Mock<ISearchEngineService> searchEngineService;
         private Mock<ILogger<SearchKeywordsController>> logger;        
         private SearchKeywordsController controller;
 
         [SetUp]
         public void SetUp()
         {
-            engineProcess = new Mock<ISearchEngineProcess>();
-            logger = new Mock<ILogger<SearchKeywordsController>>();           
-            controller = new SearchKeywordsController(engineProcess.Object, logger.Object);
+            searchEngineService = new Mock<ISearchEngineService>();
+            logger = new Mock<ILogger<SearchKeywordsController>>();            
+            controller = new SearchKeywordsController(searchEngineService.Object, logger.Object);
         }
 
         [Test]
@@ -81,9 +81,8 @@ namespace SearchKeyWordsTests.Controllers
                 }
             };
 
-            engineProcess.Setup(e => e.GetSearchEngine("google")).Returns(searchEngine);
-
-            engineProcess.Setup(e => e.GetPageNumbersAsync(It.IsAny<string>(),
+            searchEngineService.Setup(e => e.GetSearchEngine("google")).Returns(searchEngine);
+            searchEngineService.Setup(e => e.GetPageNumbersAsync(It.IsAny<string>(),
                 It.IsAny<string>(),
                 It.IsAny<string>())).ReturnsAsync(searchResult);
 

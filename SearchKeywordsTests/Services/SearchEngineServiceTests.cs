@@ -9,18 +9,18 @@ using System.Net.Http;
 namespace SearchKeyWordsTests.Services
 {
     [TestFixture]
-    public class SearchEngineProcessTests
+    public class SearchEngineServiceTests
     {
         private Mock<IHttpClientFactory> clientFactory;
         private Mock<IConfiguration> configuration;        
-        private SearchEngineProcess engineProcess;
+        private SearchEngineService engineProcess;
 
         [SetUp]
         public void SetUp()
         {
             clientFactory = new Mock<IHttpClientFactory>();
             configuration = new Mock<IConfiguration>();
-            engineProcess = new SearchEngineProcess(configuration.Object, clientFactory.Object);
+            engineProcess = new SearchEngineService(configuration.Object, clientFactory.Object);
         }
 
         [Test]

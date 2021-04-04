@@ -10,18 +10,18 @@ using SearchKeyWords.Models;
 
 namespace SearchKeyWords.Services
 {
-    public class SearchEngineProcess : ISearchEngineProcess
+    public class SearchEngineService : ISearchEngineService
     {
         private readonly IConfiguration configuration;
         private readonly IHttpClientFactory clientFactory;
-        private readonly IList<ISearchEngineService> _engineServices;
+        private readonly IList<ISearchPages> searchPages;
      
-        public SearchEngineProcess()
+        public SearchEngineService()
         {
-            _engineServices = new List<ISearchEngineService>();
+            searchPages = new List<ISearchPages>();
         }
 
-        public SearchEngineProcess(IConfiguration configuration, IHttpClientFactory clientFactory)
+        public SearchEngineService(IConfiguration configuration, IHttpClientFactory clientFactory)
         {
             this.clientFactory = clientFactory;
             this.configuration = configuration;
@@ -105,16 +105,16 @@ namespace SearchKeyWords.Services
                                     .SingleOrDefault(e => e.Name.ToLower() == engineName.ToLower());
         }
 
-        public void RegisterEngineService(ISearchEngineService engineService)
+        public void RegisterEngineService(ISearchPages engineService)
         {
-            _engineServices.Add(engineService);            
+            searchPages.Add(engineService);            
         }
 
-        public async Task<SearchResultView[]> SearchPages(string searchKeywords, string searchUrl)
+        public async Task<SearchResultView[]> SearchPagesAsync(string searchKeywords, string searchUrl)
         {            
             var tasks = new List<Task<SearchResultView>>();
           
-            foreach (var service in _engineServices)
+            foreach (var service in searchPages)
             {
                 tasks.Add(service.GetAllPagesAsync(searchKeywords, Uri.UnescapeDataString(searchUrl)));
             }

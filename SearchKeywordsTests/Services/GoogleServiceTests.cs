@@ -10,14 +10,13 @@ namespace SearchKeyWordsTests.Services
 {
     public class GogleServiceTests
     {
-        private Mock<ISearchEngineProcess> engine;
-
+        private Mock<ISearchEngineService> engine;
         private GoogleService google;
 
         [SetUp]
         public void SetUp()
         {
-            engine = new Mock<ISearchEngineProcess>();
+            engine = new Mock<ISearchEngineService>();
             google = new GoogleService(engine.Object);
         }
 
